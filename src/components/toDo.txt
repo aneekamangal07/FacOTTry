@@ -1,0 +1,7 @@
+left navigation- 5-7 boxes, top-down scroll -DONE
+right area- 1. title, 2. thumbnail, 3. bottom area have multiple rows, each row have two parts-1, row title, 2. card array. each card has two thing, 1. area with thumbnail 2. title. -DONE
+on clicking on any assets, user will go to a description page for that asset -DONE
+we can navigate among rows/across the page
+
+
+TODO 1. endpoints for movies and tv shows, 2. one more ui with left navigation, 3. player, 4. tv ui, 5. movie ui
