@@ -30,6 +30,7 @@ const Slider3 = ({
   selectedIndex,
   setSelectedIndex,
   setSelectedMovie,
+  title,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleSlides, setVisibleSlides] = useState([]);
@@ -110,6 +111,7 @@ const Slider3 = ({
   }, [selectedIndex, focusedIndex, currentIndex, slides, visibleCount]);
   return (
     <div className="bg-black w-full flex-[0.3]">
+      <h1 className="text-white text-2xl font-inter font-bold p-2 tracking-widest">{title}</h1>
       <div tabIndex={0} ref={sliderRef} className="flex flex-row items-center">
         <div className="flex items-center justify-center absolute left-0 bg-slate-200 p-2 rounded-[50%]">
           {slides.length !== 0 && currentIndex !== 0 && (

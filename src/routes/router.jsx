@@ -1,8 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import MovieUI from "../pages/movie/MovieUI";
 import Error from "../components/Error";
 import TvShows from "../pages/tvShows/TvShows";
 import InitialButton from "../components/InitialButton";
+import Home from "../pages/Home";
 
 const MainRouter = () => {
   return (
@@ -17,7 +18,8 @@ const MainRouter = () => {
       <Route path="/register/otp" element={<Register_2/>} />
       <Route path="/register/pass" element={<Register_3/>} /> */}
 
-      <Route path="/" element={<InitialButton />} />
+      <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/shows" element={<TvShows />} />
       <Route path="/movies" element={<MovieUI />} />
 

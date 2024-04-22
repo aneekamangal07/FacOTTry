@@ -8,8 +8,10 @@ import { CLIENT_API } from "../../Client/client";
 
 const Movie = () => {
   const [slides, setSlides] = useState([]);
+  const [comedyMovies, setComedyMovies] = useState([]);
+  const [trendingMovies, setTrendingMovies] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [selectedMovie, setSelectedMovie] = useState(slides[0]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const [isToggled, setIsToggled] = useState(false);
 
   const handleChange = () => {
@@ -19,15 +21,36 @@ const Movie = () => {
   useEffect(() => {
     setSelectedMovie(slides[0]);
   }, [slides]);
+
   useEffect(() => {
-    CLIENT_API.getMovieData("movie", (movieData) => {
+    CLIENT_API.getAllMovies("movie", (movieData) => {
       setSlides(movieData);
     });
-  }, []);
-  console.log("selected index: ", selectedIndex);
 
+    CLIENT_API.getMoviesByGenre(35, (comedyData) => {
+      setComedyMovies(comedyData);
+      console.log(comedyData);
+    });
+
+    CLIENT_API.getTrendingMovies((trendingData) => {
+      setTrendingMovies(trendingData);
+    });
+  }, []);
+
+  console.log("selected index: ", selectedIndex);
+  const renderSlider = (slides, title) => {
+    return (
+      <Slider3
+        slides={slides}
+        selectedIndex={selectedIndex}
+        setSelectedIndex={setSelectedIndex}
+        setSelectedMovie={setSelectedMovie}
+        title={title}
+      />
+    );
+  };
   return (
-    <div className="w-full flex flex-col relative items-start justify-center">
+    <div className="w-full flex flex-col relative items-start justify-center bg-black">
       <button
         onClick={handleChange}
         className={`h-10 w-10 ${
@@ -51,18 +74,20 @@ const Movie = () => {
           />
         )}
       </button>
-      <Hero
-        movie={selectedMovie}
-        selectedIndex={selectedIndex}
-        setSelectedIndex={setSelectedIndex}
-      />
-
-      <Slider3
-        slides={slides}
-        selectedIndex={selectedIndex}
-        setSelectedIndex={setSelectedIndex}
-        setSelectedMovie={setSelectedMovie}
-      />
+      <div className="flex flex-col space-y-8">
+        <Hero
+          movie={selectedMovie}
+          selectedIndex={selectedIndex}
+          setSelectedIndex={setSelectedIndex}
+        />
+        <div className="flex flex-col items-center space-y-8">
+          {slides.length > 0 && renderSlider(slides, "Movies")}
+          {comedyMovies.length > 0 &&
+            renderSlider(comedyMovies, "Comedy Movies")}
+          {trendingMovies.length > 0 &&
+            renderSlider(trendingMovies, "Trending Movies")}
+        </div>
+      </div>
     </div>
   );
 };
