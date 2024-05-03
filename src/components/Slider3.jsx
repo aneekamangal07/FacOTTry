@@ -109,9 +109,10 @@ const Slider3 = ({
       document.removeEventListener("keydown", handleKeyDownSlider);
     };
   }, [selectedIndex, focusedIndex, currentIndex, slides, visibleCount]);
+
   return (
-    <div className="bg-[#0F1014] w-full flex-[0.3] px-24">
-      <h1 className="text-white text-2xl font-inter font-bold p-2 tracking-widest">
+    <div className="bg-[#0F1014] w-full flex-[0.3] px-24 py-2">
+      <h1 className="text-white text-xl font-inter font-semibold pb-4 tracking-widest">
         {title}
       </h1>
       <div tabIndex={0} ref={sliderRef} className="flex flex-row items-center">
@@ -134,14 +135,16 @@ const Slider3 = ({
               tabIndex={index === focusedIndex ? 0 : -1}
               onClick={() => handleMovieClick(slide)}
             >
-              <img
-                src={`https://image.tmdb.org/t/p/w500/${slide.poster_path}`}
-                alt=""
-                className="w-full h-auto object-cover rounded-xl"
-              />
-              {/* <h1 className="text-[15px] py-2 text-white font-inter w-full whitespace-nowrap truncate">
+              <a href={`/details/${slide.id}`}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${slide.poster_path}`}
+                  alt=""
+                  className="w-full h-auto object-cover rounded-xl"
+                />
+                {/* <h1 className="text-[15px] py-2 text-white font-inter w-full whitespace-nowrap truncate">
                 {slide.title}
               </h1> */}
+              </a>
             </div>
           ))}
         </div>

@@ -1,9 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import Slider3 from "../../components/Slider3";
-import Hero from "../../components/Hero";
-import Navbar from "../../components/Navbar";
-import LeftNavBar from "../../components/LeftNavBar";
+import Slider3 from "../components/Slider3";
+import Hero from "../components/Hero";
+import Navbar from "../components/Navbar";
+import LeftNavBar from "../components/LeftNavBar";
 
 const TvShows = () => {
   const [slides, setSlides] = useState([]);

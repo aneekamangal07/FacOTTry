@@ -1,10 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import MovieUI from "../pages/movie/MovieUI";
+import MovieUI from "../pages/MovieUI";
 import Error from "../components/Error";
-import TvShows from "../pages/tvShows/TvShows";
+import TvShows from "../pages/TvShows";
 import InitialButton from "../components/InitialButton";
 import Home from "../pages/Home";
 import Player from "../components/Player";
+import Login from "../components/Login";
+import Details from "../pages/Details";
 
 const MainRouter = () => {
   return (
@@ -20,9 +22,11 @@ const MainRouter = () => {
       <Route path="/register/pass" element={<Register_3/>} /> */}
 
       <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/home" element={<Home />} />
       <Route path="/shows" element={<TvShows />} />
       <Route path="/movies" element={<MovieUI />} />
+      <Route path="/details/:id" element={<Details />} />
       <Route path="/watch/:id" element={<Player />} />
 
       <Route path="*" element={<Error />} />

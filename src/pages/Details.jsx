@@ -1,48 +1,32 @@
-import { useEffect, useState } from "react";
-import Hero from "../../components/Hero";
-import Navbar from "../../components/Navbar";
-import LeftNavBar from "../../components/LeftNavBar";
-import { CLIENT_API } from "../../Client/client";
-import RenderSlider from "../../components/RenderSlider";
+import React from "react";
+import { useState, useEffect } from "react";
+import Hero from "../components/Hero";
+import Navbar from "../components/Navbar";
+import LeftNavBar from "../components/LeftNavBar";
+import { CLIENT_API } from "../Client/client";
+import RenderSlider from "../components/RenderSlider";
+import { useParams } from "react-router-dom";
 
-const Movie = () => {
+const Details = () => {
+  const { id } = useParams();
   const [slides, setSlides] = useState([]);
-  const [comedyMovies, setComedyMovies] = useState([]);
-  const [trendingMovies, setTrendingMovies] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isToggled, setIsToggled] = useState(false);
-
-  const handleChange = () => {
-    setIsToggled(!isToggled);
-  };
 
   useEffect(() => {
     setSelectedMovie(slides[0]);
   }, [slides]);
 
   useEffect(() => {
-    CLIENT_API.getAllMovies("movie", (movieData) => {
+    CLIENT_API.getSimilarMovies(id, (movieData) => {
       setSlides(movieData);
     });
-
-    CLIENT_API.getMoviesByGenre(35, (comedyData) => {
-      setComedyMovies(comedyData);
-      console.log(comedyData);
-    });
-
-    CLIENT_API.getTrendingMovies((trendingData) => {
-      setTrendingMovies(trendingData);
-    });
-  }, []);
-
-  console.log("selected index: ", selectedIndex);
-
-  console.log("isToggled: ", isToggled);
+  }, [id]);
   return (
-    <div className="w-full flex flex-col relative items-start justify-center bg-[#0F1014]">
+    <div className="font-poppins w-full flex flex-col relative items-start justify-center bg-[#0F1014]">
       {/* toggle button */}
-      <label className="inline-flex items-center cursor-pointer z-[100] absolute right-0">
+      <label className="inline-flex items-center cursor-pointer z-[100] absolute right-0 top-0 p-2">
         <input
           type="checkbox"
           value={isToggled}
@@ -79,23 +63,7 @@ const Movie = () => {
               selectedIndex,
               setSelectedIndex,
               setSelectedMovie,
-              "Movies"
-            )}
-          {comedyMovies.length > 0 &&
-            RenderSlider(
-              comedyMovies,
-              selectedIndex,
-              setSelectedIndex,
-              setSelectedMovie,
-              "Comedy Movies"
-            )}
-          {trendingMovies.length > 0 &&
-            RenderSlider(
-              trendingMovies,
-              selectedIndex,
-              setSelectedIndex,
-              setSelectedMovie,
-              "Trending Movies"
+              "More Like This"
             )}
         </div>
       </div>
@@ -103,4 +71,4 @@ const Movie = () => {
   );
 };
 
-export default Movie;
+export default Details;

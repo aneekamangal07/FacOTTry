@@ -40,11 +40,6 @@ export const CLIENT_API = {
   getAllMovies: getAllMovies,
   getMoviesByGenre: getMoviesByGenre,
   getTrendingMovies: getTrendingMovies,
+  getSimilarMovies: getSimilarMovies,
 };
 
-// console.log(import.meta.env.VITE_API_KEY);
-
-// export const CLIENT_API = {
-//   getMovieData: getMovieData,
-// };
-// ("https://api.themoviedb.org/3/discover/movie?api_key={api_key}&with_genres=35");

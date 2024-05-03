@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { RxPlus } from "react-icons/rx";
 import { Link } from "react-router-dom";
 
 const Hero = ({ movie, selectedIndex, setSelectedIndex }) => {
   const [index, setIndex] = useState(0);
 
   const handlePrev = () => {
-    if (index >= 0) {
+    if (index > 0) {
       setIndex((prevIndex) => prevIndex - 1);
     }
   };
@@ -49,7 +50,7 @@ const Hero = ({ movie, selectedIndex, setSelectedIndex }) => {
   }, [selectedIndex, index]);
 
   return (
-    <div className="relative w-full flex-[0.7] font-inter h-screen">
+    <div className="relative w-full flex-[0.7] font-poppins h-screen">
       {movie && (
         <div className="w-full h-full">
           <img
@@ -58,17 +59,17 @@ const Hero = ({ movie, selectedIndex, setSelectedIndex }) => {
             className="w-full aspect-[2.2] object-cover"
           />
           {/* title, desc, imdb, no. of streams, play and watch trailer button */}
-          <div className="font-inter bg-gradient-to-b from-transparent to-[#0F1014] w-full text-white absolute bottom-0">
+          <div className=" bg-gradient-to-b from-transparent to-[#0F1014] w-full h-auto text-white absolute bottom-0">
             <div className="ml-32 w-[30%] mb-16 ">
-              <h1 className="text-5xl py-12 font-semibold w-full uppercase">
+              <h1 className="text-5xl font-semibold w-full uppercase">
                 {movie.title}
               </h1>
-              <p className="text-[16px] py-4 text-[#CDCDCD]">
+              <p className="text-[18px] py-4 text-[#CDCDCD]">
                 {movie.overview}
               </p>
-              <p className="text-[10px] py-2">IMDB: {movie.vote_average}</p>
-              <p className="text-[10px]">Streams: {movie.popularity}</p>
-              <div className="flex flex-row space-x-4 py-8 text-xl">
+              <p className="text-[12px] py-2">IMDB: {movie.vote_average}</p>
+              <p className="text-[12px]">Streams: {movie.popularity}</p>
+              <div className="flex flex-row space-x-8 py-8 text-xl">
                 <Link
                   to={`/watch/${movie.id}`}
                   className={`bg-white text-black font-bold p-2 w-[100%] flex items-center justify-center rounded-xl ${
@@ -79,13 +80,15 @@ const Hero = ({ movie, selectedIndex, setSelectedIndex }) => {
                 >
                   Play
                 </Link>
-                {/* <button
-                  className={`bg-white text-black py-2 px-4 rounded-3xl ${
-                    index === 1 ? "border-4 border-[#D40000]" : ""
+                <button
+                  className={`bg-[#373737] text-white p-2 px-4 rounded-xl ${
+                    index === 1
+                      ? "transform scale-105 transition-all duration-500 ease-in-out"
+                      : ""
                   }`}
                 >
-                  Watch Trailer
-                </button> */}
+                  <RxPlus />
+                </button>
               </div>
             </div>
           </div>
