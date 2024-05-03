@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Hero = ({
-  movie,
-  selectedIndex,
-  setSelectedIndex,
-}) => {
+const Hero = ({ movie, selectedIndex, setSelectedIndex }) => {
   const [index, setIndex] = useState(0);
 
   const handlePrev = () => {
-    if (index > 0) {
+    if (index >= 0) {
       setIndex((prevIndex) => prevIndex - 1);
     }
   };
@@ -53,7 +49,7 @@ const Hero = ({
   }, [selectedIndex, index]);
 
   return (
-    <div className="relative w-full flex-[0.7] ">
+    <div className="relative w-full flex-[0.7] font-inter h-screen">
       {movie && (
         <div className="w-full h-full">
           <img
@@ -62,8 +58,8 @@ const Hero = ({
             className="w-full aspect-[2.2] object-cover"
           />
           {/* title, desc, imdb, no. of streams, play and watch trailer button */}
-          <div className="font-inter bg-gradient-to-b from-transparent to-black w-full text-white absolute bottom-0">
-            <div className="ml-32 w-[400px] ">
+          <div className="font-inter bg-gradient-to-b from-transparent to-[#0F1014] w-full text-white absolute bottom-0">
+            <div className="ml-32 w-[30%] mb-16 ">
               <h1 className="text-5xl py-12 font-semibold w-full uppercase">
                 {movie.title}
               </h1>
@@ -72,22 +68,24 @@ const Hero = ({
               </p>
               <p className="text-[10px] py-2">IMDB: {movie.vote_average}</p>
               <p className="text-[10px]">Streams: {movie.popularity}</p>
-              <div className="flex flex-row space-x-4 py-8 ">
+              <div className="flex flex-row space-x-4 py-8 text-xl">
                 <Link
                   to={`/watch/${movie.id}`}
-                  className={`bg-[#D40000] text-white py-2 px-4 rounded-3xl ${
-                    index === 0 ? "border-4 border-[#ffffff]" : ""
+                  className={`bg-white text-black font-bold p-2 w-[100%] flex items-center justify-center rounded-xl ${
+                    index === 0
+                      ? "transform scale-105 transition-all duration-500 ease-in-out"
+                      : ""
                   }`}
                 >
                   Play
                 </Link>
-                <button
+                {/* <button
                   className={`bg-white text-black py-2 px-4 rounded-3xl ${
                     index === 1 ? "border-4 border-[#D40000]" : ""
                   }`}
                 >
                   Watch Trailer
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

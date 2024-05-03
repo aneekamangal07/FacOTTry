@@ -1,18 +1,20 @@
 import { useState, useEffect, KeyboardEvent } from "react";
-import { IoIosTrendingUp, IoMdSearch } from "react-icons/io";
-import { BiCameraMovie } from "react-icons/bi";
-import { MdOutlineMovie, MdOutlineHome } from "react-icons/md";
+import {
+  RiHome2Fill,
+  RiHome2Line,
+  RiSearchLine,
+  RiMovie2Line,
+  RiUser6Line,
+  RiSlideshow4Fill,
+  RiSlideshow4Line,
+} from "react-icons/ri";
 
-const Navbar = ({
-  selectedIndex,
-  setSelectedIndex,
-  isToggled,
-}) => {
+const Navbar = ({ selectedIndex, setSelectedIndex, isToggled }) => {
   const [focusedIndex, setFocusedIndex] = useState(0);
 
   useEffect(() => {
     const handleKeyDownNavbar = (event) => {
-      if (selectedIndex === 0 && !isToggled) {
+      if (selectedIndex === 0 && isToggled) {
         if (event.key === "ArrowDown") {
           setSelectedIndex(1);
         } else if (event.key === "ArrowRight") {
@@ -39,7 +41,7 @@ const Navbar = ({
             focusedIndex === 0 ? "bg-gray-500 rounded-full p-2" : ""
           }`}
         >
-          <IoMdSearch />
+          <RiUser6Line />
         </a>
         <a
           href="#"
@@ -47,7 +49,7 @@ const Navbar = ({
             focusedIndex === 1 ? "bg-gray-500 rounded-full p-2" : ""
           }`}
         >
-          <MdOutlineHome />
+          <RiSearchLine />
         </a>
         <a
           href="#"
@@ -55,7 +57,7 @@ const Navbar = ({
             focusedIndex === 2 ? "bg-gray-500 rounded-full p-2" : ""
           }`}
         >
-          <IoIosTrendingUp />
+          <RiHome2Line />
         </a>
         <a
           href="#"
@@ -63,7 +65,7 @@ const Navbar = ({
             focusedIndex === 3 ? "bg-gray-500 rounded-full p-2" : ""
           }`}
         >
-          <BiCameraMovie />
+          <RiMovie2Line />
         </a>
         <a
           href="#"
@@ -71,7 +73,7 @@ const Navbar = ({
             focusedIndex === 4 ? "bg-gray-500 rounded-full p-2" : ""
           }`}
         >
-          <MdOutlineMovie />
+          <RiSlideshow4Line />
         </a>
       </div>
     </div>

@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import Slider3 from "../../components/Slider3";
 import Hero from "../../components/Hero";
 import Navbar from "../../components/Navbar";
-import { navbarIcons } from "../../data/db";
 import LeftNavBar from "../../components/LeftNavBar";
 import { CLIENT_API } from "../../Client/client";
+import RenderSlider from "../../components/RenderSlider";
 
 const Movie = () => {
   const [slides, setSlides] = useState([]);
@@ -38,54 +37,66 @@ const Movie = () => {
   }, []);
 
   console.log("selected index: ", selectedIndex);
-  const renderSlider = (slides, title) => {
-    return (
-      <Slider3
-        slides={slides}
-        selectedIndex={selectedIndex}
-        setSelectedIndex={setSelectedIndex}
-        setSelectedMovie={setSelectedMovie}
-        title={title}
-      />
-    );
-  };
+
+  console.log("isToggled: ", isToggled);
   return (
-    <div className="w-full flex flex-col relative items-start justify-center bg-black">
-      <button
-        onClick={handleChange}
-        className={`h-10 w-10 ${
-          isToggled ? "bg-[#e04cf3]" : "bg-[#ff0b0b]"
-        } justify-center items-center cursor-pointer rounded-full absolute top-0 left-0 z-20`}
-      >
-        {isToggled ? (
-          <div className="z-10 w-32 h-full bg-gradient-to-b from-black to-transparent absolute left-0 top-0">
-            <LeftNavBar
-              slides={navbarIcons}
-              selectedIndex={selectedIndex}
-              setSelectedIndex={setSelectedIndex}
-              isToggled={isToggled}
-            />
-          </div>
-        ) : (
-          <Navbar
+    <div className="w-full flex flex-col relative items-start justify-center bg-[#0F1014]">
+      {/* toggle button */}
+      <label className="inline-flex items-center cursor-pointer z-[100] absolute right-0">
+        <input
+          type="checkbox"
+          value={isToggled}
+          className="sr-only peer"
+          onChange={(e) => setIsToggled(e.target.checked)}
+        />
+        <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+      </label>
+      {isToggled ? (
+        <Navbar
+          selectedIndex={selectedIndex}
+          setSelectedIndex={setSelectedIndex}
+          isToggled={isToggled}
+        />
+      ) : (
+        <div className="z-10 w-32 h-full bg-gradient-to-r from-[#0F1014] to-transparent absolute left-0 top-0">
+          <LeftNavBar
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex}
             isToggled={isToggled}
           />
-        )}
-      </button>
+        </div>
+      )}
       <div className="flex flex-col space-y-8">
         <Hero
           movie={selectedMovie}
           selectedIndex={selectedIndex}
           setSelectedIndex={setSelectedIndex}
         />
-        <div className="flex flex-col items-center space-y-8">
-          {slides.length > 0 && renderSlider(slides, "Movies")}
+        <div className="flex flex-col items-center space-y-8 z-10">
+          {slides.length > 0 &&
+            RenderSlider(
+              slides,
+              selectedIndex,
+              setSelectedIndex,
+              setSelectedMovie,
+              "Movies"
+            )}
           {comedyMovies.length > 0 &&
-            renderSlider(comedyMovies, "Comedy Movies")}
+            RenderSlider(
+              comedyMovies,
+              selectedIndex,
+              setSelectedIndex,
+              setSelectedMovie,
+              "Comedy Movies"
+            )}
           {trendingMovies.length > 0 &&
-            renderSlider(trendingMovies, "Trending Movies")}
+            RenderSlider(
+              trendingMovies,
+              selectedIndex,
+              setSelectedIndex,
+              setSelectedMovie,
+              "Trending Movies"
+            )}
         </div>
       </div>
     </div>

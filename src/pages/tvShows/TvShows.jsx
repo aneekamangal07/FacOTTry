@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Slider3 from "../../components/Slider3";
 import Hero from "../../components/Hero";
 import Navbar from "../../components/Navbar";
-import { navbarIcons } from "../../data/db";
 import LeftNavBar from "../../components/LeftNavBar";
 
 const TvShows = () => {
@@ -27,7 +26,7 @@ const TvShows = () => {
   }, []);
   return (
     <div>
-      <LeftNavBar slides={navIcons} />
+      <LeftNavBar />
       <Hero
         movie={selectedMovie}
         selectedIndex={selectedIndex}

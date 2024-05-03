@@ -110,22 +110,26 @@ const Slider3 = ({
     };
   }, [selectedIndex, focusedIndex, currentIndex, slides, visibleCount]);
   return (
-    <div className="bg-black w-full flex-[0.3]">
-      <h1 className="text-white text-2xl font-inter font-bold p-2 tracking-widest">{title}</h1>
+    <div className="bg-[#0F1014] w-full flex-[0.3] px-24">
+      <h1 className="text-white text-2xl font-inter font-bold p-2 tracking-widest">
+        {title}
+      </h1>
       <div tabIndex={0} ref={sliderRef} className="flex flex-row items-center">
-        <div className="flex items-center justify-center absolute left-0 bg-slate-200 p-2 rounded-[50%]">
+        <div className="flex items-center justify-center absolute left-[3%] bg-slate-200 p-2 rounded-[50%]">
           {slides.length !== 0 && currentIndex !== 0 && (
             <button onClick={handlePrev}>
               <MdKeyboardArrowLeft />
             </button>
           )}
         </div>
-        <div className="flex flex-grow">
+        <div className="flex flex-grow space-x-8 ">
           {visibleSlides.map((slide, index) => (
             <div
               key={index}
-              className={`p-2 flex-1 ${
-                index === focusedIndex ? "border border-[#ffffff]" : ""
+              className={`p-2 flex-1 rounded-xl ${
+                index === focusedIndex
+                  ? "transform scale-105 transition-all duration-500 ease-in-out"
+                  : ""
               }`}
               tabIndex={index === focusedIndex ? 0 : -1}
               onClick={() => handleMovieClick(slide)}
@@ -133,15 +137,15 @@ const Slider3 = ({
               <img
                 src={`https://image.tmdb.org/t/p/w500/${slide.poster_path}`}
                 alt=""
-                className="w-full h-auto aspect-[9/16] object-cover"
+                className="w-full h-auto object-cover rounded-xl"
               />
-              <h1 className="text-[15px] py-2 text-white font-inter w-full whitespace-nowrap truncate">
+              {/* <h1 className="text-[15px] py-2 text-white font-inter w-full whitespace-nowrap truncate">
                 {slide.title}
-              </h1>
+              </h1> */}
             </div>
           ))}
         </div>
-        <div className="flex items-center justify-center absolute right-0 bg-slate-200 p-2 rounded-[50%]">
+        <div className="flex items-center justify-center absolute right-[3%] bg-slate-200 p-2 rounded-[50%]">
           {slides.length !== 0 &&
             currentIndex < slides.length - visibleCount && (
               <button onClick={handleNext}>

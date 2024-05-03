@@ -4,6 +4,7 @@ import Error from "../components/Error";
 import TvShows from "../pages/tvShows/TvShows";
 import InitialButton from "../components/InitialButton";
 import Home from "../pages/Home";
+import Player from "../components/Player";
 
 const MainRouter = () => {
   return (
@@ -22,6 +23,7 @@ const MainRouter = () => {
       <Route path="/home" element={<Home />} />
       <Route path="/shows" element={<TvShows />} />
       <Route path="/movies" element={<MovieUI />} />
+      <Route path="/watch/:id" element={<Player />} />
 
       <Route path="*" element={<Error />} />
     </Routes>

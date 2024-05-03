@@ -30,6 +30,12 @@ export function getTrendingMovies(callback) {
   fetchMovies(url, callback);
 }
 
+export function getSimilarMovies(value, callback) {
+  const apiKey = import.meta.env.VITE_API_KEY;
+  const url = `https://api.themoviedb.org/3/movie/${value}/similar?api_key=${apiKey}`;
+  fetchMovies(url, callback);
+}
+
 export const CLIENT_API = {
   getAllMovies: getAllMovies,
   getMoviesByGenre: getMoviesByGenre,
