@@ -10,10 +10,10 @@ import {
 } from "react-icons/ri";
 
 const LeftNav = ({ selectedIndex, setSelectedIndex, isToggled }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [visibleSlides, setVisibleSlides] = useState([]);
   const sliderRef = useRef(null);
+
   const [leftNavFocusedIndex, setLeftNavFocusedIndex] = useState(0);
+  const visibleItemsLength = 5;
 
   useEffect(() => {
     if (sliderRef.current) {
@@ -22,19 +22,14 @@ const LeftNav = ({ selectedIndex, setSelectedIndex, isToggled }) => {
   }, []);
 
   const handlePrev = () => {
-    if (leftNavFocusedIndex > 0) {
-      setLeftNavFocusedIndex((prevIndex) => prevIndex - 1);
-    } else if (currentIndex > 0) {
-      setCurrentIndex((prevIndex) => prevIndex - 1);
-    }
+    setLeftNavFocusedIndex(
+      (prevIndex) => (prevIndex - 1 + visibleItemsLength) % visibleItemsLength
+    );
   };
 
-  const handleNext = () => {
-    if (leftNavFocusedIndex < 6) {
-      setLeftNavFocusedIndex((prevIndex) => prevIndex + 1);
-    } else if (currentIndex < slides.length - 7) {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-    }
+  const handleNext = (e) => {
+    e.preventDefault();
+    setLeftNavFocusedIndex((prevIndex) => (prevIndex + 1) % visibleItemsLength);
   };
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -42,12 +37,13 @@ const LeftNav = ({ selectedIndex, setSelectedIndex, isToggled }) => {
         switch (e.key) {
           case "ArrowRight":
             setSelectedIndex(1);
+            set;
             break;
           case "ArrowUp":
             handlePrev();
             break;
           case "ArrowDown":
-            handleNext();
+            handleNext(e);
             break;
           default:
             break;
@@ -60,12 +56,12 @@ const LeftNav = ({ selectedIndex, setSelectedIndex, isToggled }) => {
     };
   }, [selectedIndex, isToggled, handlePrev, handleNext, setSelectedIndex]);
 
-  // console.log("focused index:", leftNavFocusedIndex);
+  // console.log("left focused index:", leftNavFocusedIndex);
   return (
     <div
       tabIndex={0}
       ref={sliderRef}
-      className="flex flex-col items-center h-screen justify-center text-white"
+      className="flex flex-col items-center h-screen justify-center text-white border-transparent focus:border-transparent focus:ring-0"
     >
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center space-y-16">

@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+// import { useHistory } from "react-router-dom";
 
 /**
  * The function `calculateVisibleSlides` determines the number of visible slides based on the width
@@ -36,7 +37,9 @@ const Slider3 = ({
   const [visibleSlides, setVisibleSlides] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const sliderRef = useRef(null);
-  const [focusedIndex, setFocusedIndex] = useState(0);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+
+  // const history = useHistory();
 
   const handleMovieClick = (movie) => {
     setSelectedMovie(movie);
@@ -86,32 +89,48 @@ const Slider3 = ({
   };
 
   useEffect(() => {
-    const handleKeyDownSlider = (e) => {
-      if (selectedIndex === 2) {
-        switch (e.key) {
-          case "ArrowUp":
-            setSelectedIndex(1);
-            break;
-          case "ArrowLeft":
-            handlePrev();
-            break;
-          case "ArrowRight":
-            handleNext();
-            break;
-          default:
-            break;
-        }
+    if (selectedIndex === 2) {
+      setFocusedIndex(0);
+    }
+  }, [selectedIndex]);
+  const handleKeyDownSlider = (e) => {
+    if (selectedIndex === 2) {
+      switch (e.key) {
+        case "ArrowUp":
+          setSelectedIndex(1);
+          break;
+        case "ArrowLeft":
+          handlePrev();
+          break;
+        case "ArrowRight":
+          handleNext();
+          break;
+        // case "Enter":
+        //   history.push(`/details/${slides[focusedIndex].id}`);
+        //   break;
+        default:
+          break;
       }
-    };
+    }
+  };
+  useEffect(() => {
     document.addEventListener("keydown", handleKeyDownSlider);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDownSlider);
     };
-  }, [selectedIndex, focusedIndex, currentIndex, slides, visibleCount]);
+  }, [
+    selectedIndex,
+    focusedIndex,
+    currentIndex,
+    slides,
+    visibleCount,
+    handleKeyDownSlider,
+  ]);
 
+  console.log("selected Index:", selectedIndex);
   return (
-    <div className="bg-[#0F1014] w-full flex-[0.3] px-24 py-2">
+    <div className="bg-[#0F1014] w-full flex-[0.3] px-24 py-2 border-transparent focus:border-transparent focus:ring-0">
       <h1 className="text-white text-xl font-inter font-semibold pb-4 tracking-widest">
         {title}
       </h1>

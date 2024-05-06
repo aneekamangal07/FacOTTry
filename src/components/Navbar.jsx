@@ -9,8 +9,14 @@ import {
   RiSlideshow4Line,
 } from "react-icons/ri";
 
-const Navbar = ({ selectedIndex, setSelectedIndex, isToggled }) => {
+const Navbar = ({
+  
+  selectedIndex,
+  setSelectedIndex,
+  isToggled,
+}) => {
   const [focusedIndex, setFocusedIndex] = useState(0);
+  const visibleItemsLength = 5;
 
   useEffect(() => {
     const handleKeyDownNavbar = (event) => {
@@ -18,9 +24,12 @@ const Navbar = ({ selectedIndex, setSelectedIndex, isToggled }) => {
         if (event.key === "ArrowDown") {
           setSelectedIndex(1);
         } else if (event.key === "ArrowRight") {
-          setFocusedIndex((prevIndex) => (prevIndex + 1) % 5);
+          setFocusedIndex((prevIndex) => (prevIndex + 1) % visibleItemsLength);
         } else if (event.key === "ArrowLeft") {
-          setFocusedIndex((prevIndex) => (prevIndex - 1 + 5) % 5);
+          setFocusedIndex(
+            (prevIndex) =>
+              (prevIndex - 1 + visibleItemsLength) % visibleItemsLength
+          );
         }
       }
     };

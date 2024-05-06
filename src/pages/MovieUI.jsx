@@ -38,7 +38,7 @@ const Movie = () => {
   return (
     <div className="font-poppins w-full flex flex-col relative items-start justify-center bg-[#0F1014]">
       {/* toggle button */}
-      <label className="inline-flex items-center cursor-pointer z-[100] absolute right-0">
+      <label className="inline-flex items-center cursor-pointer z-[100] absolute right-0 top-0 p-2">
         <input
           type="checkbox"
           value={isToggled}
