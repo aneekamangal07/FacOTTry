@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-// import { useHistory } from "react-router-dom";
 
 /**
  * The function `calculateVisibleSlides` determines the number of visible slides based on the width
@@ -39,8 +38,6 @@ const Slider3 = ({
   const sliderRef = useRef(null);
   const [focusedIndex, setFocusedIndex] = useState(-1);
 
-  // const history = useHistory();
-
   const handleMovieClick = (movie) => {
     setSelectedMovie(movie);
   };
@@ -56,6 +53,8 @@ const Slider3 = ({
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // const visibleCount = 5;
 
   const visibleCount = useMemo(
     () => calculateVisibleSlides(windowWidth),
@@ -75,6 +74,7 @@ const Slider3 = ({
   const handlePrev = () => {
     if (focusedIndex > 0) {
       setFocusedIndex((prevIndex) => prevIndex - 1);
+      // setCurrentIndex((prevIndex) => prevIndex - 1);
     } else if (currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
     }
@@ -83,6 +83,7 @@ const Slider3 = ({
   const handleNext = () => {
     if (focusedIndex < visibleCount - 1) {
       setFocusedIndex((prevIndex) => prevIndex + 1);
+      // setCurrentIndex((prevIndex) => prevIndex + 1);
     } else if (currentIndex < slides.length - visibleCount) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
@@ -91,6 +92,8 @@ const Slider3 = ({
   useEffect(() => {
     if (selectedIndex === 2) {
       setFocusedIndex(0);
+    } else if (selectedIndex === 1 || selectedIndex === 0) {
+      setFocusedIndex(-1);
     }
   }, [selectedIndex]);
   const handleKeyDownSlider = (e) => {
@@ -105,9 +108,15 @@ const Slider3 = ({
         case "ArrowRight":
           handleNext();
           break;
-        // case "Enter":
-        //   history.push(`/details/${slides[focusedIndex].id}`);
-        //   break;
+        case "Enter":
+          if (focusedIndex !== -1) {
+            const selectedSlide = slides[currentIndex + focusedIndex];
+            if (selectedSlide) {
+              // Redirect to details page
+              window.location.href = `/details/${selectedSlide.id}`;
+            }
+          }
+          break;
         default:
           break;
       }
@@ -125,10 +134,18 @@ const Slider3 = ({
     currentIndex,
     slides,
     visibleCount,
+    setFocusedIndex,
     handleKeyDownSlider,
   ]);
 
-  console.log("selected Index:", selectedIndex);
+  useEffect(() => {
+    setSelectedMovie(slides[focusedIndex + currentIndex]);
+  }, [currentIndex, focusedIndex]);
+
+  // // console.log("selected Index:", selectedIndex);
+  // console.log("focused Index:", focusedIndex);
+  // console.log("current Index:", currentIndex);
+  console.log(slides);
   return (
     <div className="bg-[#0F1014] w-full flex-[0.3] px-24 py-2 border-transparent focus:border-transparent focus:ring-0">
       <h1 className="text-white text-xl font-inter font-semibold pb-4 tracking-widest">

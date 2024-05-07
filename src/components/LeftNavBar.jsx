@@ -32,6 +32,13 @@ const LeftNav = ({ selectedIndex, setSelectedIndex, isToggled }) => {
     setLeftNavFocusedIndex((prevIndex) => (prevIndex + 1) % visibleItemsLength);
   };
   useEffect(() => {
+    if (selectedIndex === 0) {
+      setLeftNavFocusedIndex(0);
+    } else if (selectedIndex === 2 || selectedIndex === 1) {
+      setLeftNavFocusedIndex(-1);
+    }
+  }, [selectedIndex]);
+  useEffect(() => {
     const handleKeyDown = (e) => {
       if (selectedIndex === 0 && !isToggled) {
         switch (e.key) {

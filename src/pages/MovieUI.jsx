@@ -24,7 +24,7 @@ const Movie = () => {
 
     CLIENT_API.getMoviesByGenre(35, (comedyData) => {
       setComedyMovies(comedyData);
-      console.log(comedyData);
+      // console.log(comedyData);
     });
 
     CLIENT_API.getTrendingMovies((trendingData) => {

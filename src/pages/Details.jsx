@@ -11,8 +11,8 @@ const Details = () => {
   const { id } = useParams();
   const [slides, setSlides] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const [isToggled, setIsToggled] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     setSelectedMovie(slides[0]);
@@ -23,6 +23,7 @@ const Details = () => {
       setSlides(movieData);
     });
   }, [id]);
+
   return (
     <div className="font-poppins w-full flex flex-col relative items-start justify-center bg-[#0F1014]">
       {/* toggle button */}

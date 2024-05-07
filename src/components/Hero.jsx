@@ -25,6 +25,9 @@ const Hero = ({ movie, selectedIndex, setSelectedIndex }) => {
     if (selectedIndex === 1) {
       setIndex(0);
     }
+    else if (selectedIndex === 2 || selectedIndex === 0) {
+      setIndex(-1);
+    }
   }, [selectedIndex]);
   const handleKeyDown = (e) => {
     if (selectedIndex === 1) {
